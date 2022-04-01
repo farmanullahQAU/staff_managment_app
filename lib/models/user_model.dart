@@ -1,17 +1,20 @@
 class UserModel{
-  final String? imageUrl;
-  final String firstName;
+  late final String userId;
+    String? imageUrl;
+   late final String firstName;
   //last name could be null
-  final String? lastName;
+  late final  String? lastName;
 
   bool? selected=false;
 
-  final bool  status;
-  final String employmentType;
-  final String email;
-  final Office office;
 
-  final String position;
+
+   late final bool  status;
+  late final String employmentType;
+   late final String email;
+   late Office office;
+
+   late final String position;
 
 
   UserModel({
@@ -21,6 +24,7 @@ class UserModel{
    
    required this.firstName,
     this.selected,
+    
 
    this.lastName,
    required this.status,
@@ -31,17 +35,51 @@ class UserModel{
    required this.position,
    
    });
+
+
+     UserModel.fromJson(Map<String, dynamic> json, String id,) {
+    userId = id;
+    firstName= json["first_name"];
+    imageUrl=json['image_url'];
+    lastName= json["last_name"];
+    status= json["status"];
+    employmentType= json["employment_type"];
+    email= json["email"];
+    position= json["position"];
+
+    office=Office.fromJson(json['office']);
+
+    
+    
+ 
+  }
+
+    Map<String, dynamic> toMap() {
+    return {
+      'first_name':firstName,
+      'last_name': lastName,
+      'image_url':imageUrl,
+      'status':status,
+      'employment_type':employmentType,
+      'email':email,
+      'position':position,
+      'office':office.toMap(),
+   
+  
+    };
+  }
+
 }
 
 
 
 class Office{
   
-  final String officeAddress;
+  late  String officeAddress;
   //last name could be null
-  final String department;
+  late String department;
 
-  final String  team;
+  late String  team;
 
 
 
@@ -53,4 +91,29 @@ class Office{
   required this.team,
   
    });
+
+
+
+     Office.fromJson(Map<String, dynamic> json,) {
+
+    officeAddress= json["office_address"];
+    department= json["department"];
+    team= json["team"];
+  
+
+    
+    
+ 
+  }
+
+   Map<String, dynamic> toMap() {
+    return {
+      'office_address':officeAddress,
+      'department': department,
+      'team':team,
+     
+   
+  
+    };
+}
 }

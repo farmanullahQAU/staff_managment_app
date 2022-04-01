@@ -4,14 +4,9 @@ import 'package:staff_managment_dashboard/components/text_field.dart';
 
 import '../../../constants/constants.dart';
 
-class TopRow extends StatefulWidget {
-  TopRow({Key? key}) : super(key: key);
 
-  @override
-  State<TopRow> createState() => _TopRowState();
-}
 
-class _TopRowState extends State<TopRow> {
+class TopRow extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(

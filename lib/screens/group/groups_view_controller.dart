@@ -4,7 +4,6 @@ import 'package:get/state_manager.dart';
 import 'package:staff_managment_dashboard/screens/login/login_view.dart';
 import 'package:staff_managment_dashboard/screens/staff/staff_view_controller.dart';
 
-import '../add_new/add_parameters_view.dart';
 import '../staff/staff_view.dart';
 
 class NavigationRailController extends GetxController{

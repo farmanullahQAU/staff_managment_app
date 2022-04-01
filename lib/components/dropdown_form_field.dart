@@ -32,10 +32,16 @@ class DropDownField extends StatelessWidget {
       validator: (value) =>
           this.validator != null ? this.validator!(value) : null,
       items: items.map((dynamic category) {
+
+       
         return new DropdownMenuItem(
           
             value: category,
-            child: FittedBox(child: Text(category.toString())));
+            child: FittedBox(child:
+            
+            category is bool?Text(category==false?"status-0":"status-1"):
+            
+             Text(category.toString())));
       }).toList(),
       onChanged: (value) => onChanged(value),
       decoration: InputDecoration(
