@@ -10,14 +10,24 @@ class StaffView extends StatelessWidget {
   final _staffViewController = Get.find<StaffViewController>();
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Obx(
-        () => _staffViewController.isFilter==true
+        
+        () => 
+        
+        
+      _staffViewController.isFilter==true&&_staffViewController.getFilter().isEmpty?
+
+
+      Center(child: Text("No data found"),):
+        
+        _staffViewController.isFilter==true
             ? SingleChildScrollView(
                 child: Obx(()=>
                PaginatedDataTable(
                     header: Text('Header Text'),
-                    rowsPerPage: _staffViewController.getFilterUsers.length,
+                    rowsPerPage: _staffViewController.getFilter().length,
                     columns: [
                       DataColumn(label: Text(firstName.capitalizeFirst!)),
                       DataColumn(label: Text(lastName.capitalizeFirst!)),
@@ -30,7 +40,7 @@ class StaffView extends StatelessWidget {
                       DataColumn(label: Text(position.capitalizeFirst!)),
                     ],
                     source:
-                        _DataSource(context, _staffViewController.getFilterUsers),
+                        _DataSource(context, _staffViewController.getFilter()),
                   ),
                 ),
               )

@@ -32,7 +32,7 @@ class SMS extends StatelessWidget {
 
     builder: (context, widget) => ResponsiveWrapper.builder(
           BouncingScrollWrapper.builder(context, widget!),
-          maxWidth: 1300,
+          maxWidth: 1500,
           minWidth: 450,
           defaultScale: true,
 

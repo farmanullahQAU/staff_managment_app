@@ -13,14 +13,37 @@ import '../groups_view_controller.dart';
 
 class FiltersRow extends StatelessWidget {
   final _allstaffsController = Get.find<StaffViewController>();
-  final _controller = Get.find<NavigationRailController>();
   FiltersRow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Obx(()=>Text(_allstaffsController.selectedStatus.toString())),
+
+     Text(_allstaffsController.officeList.length.toString()),
+          TextButton(
+          
+          onPressed: (){
+            _allstaffsController.isFilter=true;
+            _allstaffsController.getFilter();
+
+ 
+
+            
+          },
+          child: Text("kkk")),
+        Obx(()=>
+        
+        _allstaffsController.selectedStatus==""?
+
+        TextButton(
+          
+          onPressed: (){
+            _allstaffsController.getFilter();
+          },
+          child: Text("kkk")):
+        
+        Text(_allstaffsController.selectedStatus.toString())),
         ResponsiveRowColumn(
           layout: ResponsiveWrapper.of(context).isSmallerThan(TABLET)
               ? ResponsiveRowColumnType.COLUMN
@@ -43,28 +66,97 @@ class FiltersRow extends StatelessWidget {
                     ResponsiveRowColumnItem(
                       rowFlex: 1,
                       child: DropDownField(
+
+                        value: _allstaffsController.selectedStatus,
                           items: const [false, true],
                           hintText: "status",
                           onChanged: (bool status) {
 
                             _allstaffsController.isFilter = true;
 
-                            _allstaffsController.selectedStatus.value = status;
+                            _allstaffsController.selectedStatus = status.toString();
+
+                          }),
+                    ),
+                    ResponsiveRowColumnItem(
+                      rowFlex: 1,
+                      child: 
+                        DropDownField(
+                          value: _allstaffsController.selectedEmploymentType,
+                            items: _allstaffsController.employmentTypeList,
+                            hintText: employmentType.capitalizeFirst!,
+                            onChanged: (employmentType) {
+                              _allstaffsController.isFilter = true;
+                      
+                      //set set current employmentype 
+                      
+                      _allstaffsController.selectedEmploymentType=employmentType;
+                      
+                            }),
+                    ),
+
+
+                       ResponsiveRowColumnItem(
+                      rowFlex: 1,
+                      child: DropDownField(
+                          items: _allstaffsController.departmentsList,
+                          hintText: department.capitalizeFirst!,
+                          onChanged: (String department) {
+
+         _allstaffsController.isFilter = true;
+
+//set set current office 
+
+_allstaffsController.selectedDept=department;
                           }),
                     ),
                     ResponsiveRowColumnItem(
                       rowFlex: 1,
                       child: DropDownField(
-                          items: _controller.employmentTypeList,
-                          hintText: employmentType.capitalizeFirst!,
-                          onChanged: (value) {}),
+                        value: _allstaffsController.selectedOffice,
+                          items: _allstaffsController.officeList,
+                          hintText: office.capitalizeFirst!,
+                          onChanged: (String office) {
+         _allstaffsController.isFilter = true;
+
+//set set current office 
+
+_allstaffsController.selectedOffice=office;
+
+                          }),
                     ),
-                    ResponsiveRowColumnItem(
+
+
+                        ResponsiveRowColumnItem(
                       rowFlex: 1,
                       child: DropDownField(
-                          items: _controller.departmentsList,
-                          hintText: department.capitalizeFirst!,
-                          onChanged: (value) {}),
+                          items: _allstaffsController.teamList,
+                          hintText: team.capitalizeFirst!,
+                          onChanged: (String team) {
+         _allstaffsController.isFilter = true;
+
+//set set current office 
+
+_allstaffsController.selectedTeam=team;
+
+                          }),
+                    ),
+
+
+                        ResponsiveRowColumnItem(
+                      rowFlex: 1,
+                      child: DropDownField(
+                               value: _allstaffsController.selectedTeam,
+                          items: _allstaffsController.positionsList,
+                          hintText: position.capitalizeFirst!,
+                          onChanged: (String position) {
+         _allstaffsController.isFilter = true;
+
+//set set current office 
+
+_allstaffsController.selectedPosition=position;
+
+                          }),
                     )
                   ]),
             ),
@@ -73,7 +165,11 @@ class FiltersRow extends StatelessWidget {
               child: TextButton(
                 child: Text("clear filter"),
                 onPressed: () async {
-            Get.find<StaffViewController>().isFilter==false;
+       
+
+                              _allstaffsController.selectedEmploymentType="";
+
+
                 },
               ),
             )

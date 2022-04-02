@@ -43,7 +43,7 @@ class GropsHomeView extends StatelessWidget {
             
             
                 selected: _controller.currentIndex==0,
-                      leading:    CircleAvatar(
+                      leading:    const CircleAvatar(
                 child: Icon(Icons.home),
               ),
                 onTap: () {
@@ -57,7 +57,7 @@ class GropsHomeView extends StatelessWidget {
             ListTile(
                 selected: _controller.currentIndex==1,
          
-            leading:    CircleAvatar(
+            leading:    const CircleAvatar(
                 child: Icon(Icons.group),
               ),
                 onTap: () {
@@ -73,7 +73,7 @@ class GropsHomeView extends StatelessWidget {
              ListTile(
                 selected: _controller.currentIndex==2,
            
-                     leading:    CircleAvatar(
+                     leading:    const CircleAvatar(
                 child: Icon(Icons.calendar_today),
               ),
                 onTap: () {
@@ -88,7 +88,7 @@ class GropsHomeView extends StatelessWidget {
              ListTile(
                 selected: _controller.currentIndex==3,
            
-                     leading:    CircleAvatar(
+                     leading:    const CircleAvatar(
                 child: Icon(Icons.shuffle_on),
               ),
                 onTap: () {
@@ -102,7 +102,7 @@ class GropsHomeView extends StatelessWidget {
                   Obx(()=>
                    ListTile(
                                 selected: _controller.currentIndex==4,
-                            leading:    CircleAvatar(
+                            leading:    const CircleAvatar(
                                 child: Icon(Icons.handshake),
                               ),
                                 onTap: () {
@@ -125,20 +125,20 @@ class GropsHomeView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 //top logo,srachfiled, inbox row
 
 
                 TopRow(),
     
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
     
                 //free tiral(notification row)
     
                 NotificationRow(),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
     
@@ -151,7 +151,7 @@ class GropsHomeView extends StatelessWidget {
             ),
           )
           ,
-          IconButton(icon: Icon(Icons.menu),onPressed: (){
+          IconButton(icon: const Icon(Icons.menu),onPressed: (){
     
             Get.find<MenuController>().controlMenu();
           },),
@@ -184,7 +184,7 @@ class GropsHomeView extends StatelessWidget {
                 //free tiral(notification row)
     
                 NotificationRow(),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
     
@@ -213,13 +213,13 @@ class GropsHomeView extends StatelessWidget {
       labelType: NavigationRailLabelType.selected,
       destinations: <NavigationRailDestination>[
         NavigationRailDestination(
-            icon: CircleAvatar(
+            icon: const CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Icon(Icons.home),
             ),
             selectedIcon: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: Icon(Icons.home),
+              child: const Icon(Icons.home),
             ),
             label: Container()),
         NavigationRailDestination(
@@ -229,7 +229,7 @@ class GropsHomeView extends StatelessWidget {
             ),
             selectedIcon: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: Icon(Icons.group),
+              child: const Icon(Icons.group),
             ),
             label: Container()),
         NavigationRailDestination(
@@ -239,28 +239,28 @@ class GropsHomeView extends StatelessWidget {
             ),
             selectedIcon: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: Icon(Icons.calendar_month),
+              child: const Icon(Icons.calendar_month),
             ),
             label: Container()),
                    NavigationRailDestination(
-            icon: CircleAvatar(
+            icon: const CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Icon(Icons.shuffle),
             ),
             selectedIcon: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: Icon(Icons.shuffle),
+              child: const Icon(Icons.shuffle),
             ),
             label: Container()),
 
                       NavigationRailDestination(
-            icon: CircleAvatar(
+            icon: const CircleAvatar(
               backgroundColor: Colors.transparent,
               child: Icon(Icons.handshake),
             ),
             selectedIcon: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
-              child: Icon(Icons.handshake),
+              child: const Icon(Icons.handshake),
             ),
             label: Container()),
       ],

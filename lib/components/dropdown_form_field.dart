@@ -4,12 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DropDownField extends StatelessWidget {
   final String hintText;
-  final String? value;
+  final dynamic value;
   final Function? validator;
 
   final Function onChanged;
   final List<dynamic> items;
   const DropDownField(
+
+    
 
     
       {Key? key,
@@ -25,26 +27,34 @@ class DropDownField extends StatelessWidget {
     return DropdownButtonHideUnderline(
       
         child: DropdownButtonFormField(
+
+          
           isExpanded: true,
 
         isDense: true,
-      value: value ?? null,
+      value: 
+      
+      value==null||value==""?null:
+      value,
       validator: (value) =>
-          this.validator != null ? this.validator!(value) : null,
+          validator != null ? validator!(value) : null,
       items: items.map((dynamic category) {
 
        
-        return new DropdownMenuItem(
+        return  DropdownMenuItem(
+
+          
           
             value: category,
             child: FittedBox(child:
             
-            category is bool?Text(category==false?"status-0":"status-1"):
+            category is bool?Text(category==false?"Status-0":"Status-1"):
             
              Text(category.toString())));
       }).toList(),
       onChanged: (value) => onChanged(value),
       decoration: InputDecoration(
+         contentPadding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 8),
 
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20)

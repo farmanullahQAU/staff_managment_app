@@ -20,43 +20,6 @@ class NavigationRailController extends GetxController{
     }
   }
 
-  final List<String> employmentTypeList=[
-
-
-    "internal",
-    "external",
-    "other"
-  ];
-
-    final List<String> teamList=[
-
-
-    "sales",
-    "product",
-    "marketing",
-    "customer services"
-
-  ];
-
-      final List<String> positionsList=[
-
-
-    "head of customers",
-    "sales manager",
-    "teamleads sales",
-    "key account manager"
-
-  ];
-
-    final List<String> departmentsList=[
-
-
-    "marketing & sales",
-    "it",
-    "customer services"
-
-  ];
-
   final _currentIndex=0.obs;
   int get currentIndex=>_currentIndex.value;
 

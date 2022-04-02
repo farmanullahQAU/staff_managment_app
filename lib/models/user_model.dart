@@ -39,13 +39,13 @@ class UserModel{
 
      UserModel.fromJson(Map<String, dynamic> json, String id,) {
     userId = id;
-    firstName= json["first_name"];
+    firstName= json["first_name"].toString().toLowerCase();
     imageUrl=json['image_url'];
-    lastName= json["last_name"];
+    lastName= json["last_name"].toLowerCase();
     status= json["status"];
-    employmentType= json["employment_type"];
+    employmentType= json["employment_type"].toLowerCase();
     email= json["email"];
-    position= json["position"];
+    position= json["position"].toLowerCase();
 
     office=Office.fromJson(json['office']);
 
@@ -96,9 +96,9 @@ class Office{
 
      Office.fromJson(Map<String, dynamic> json,) {
 
-    officeAddress= json["office_address"];
-    department= json["department"];
-    team= json["team"];
+    officeAddress= json["office_address"].toLowerCase();
+    department= json["department"].toLowerCase();
+    team= json["team"].toLowerCase();
   
 
     
