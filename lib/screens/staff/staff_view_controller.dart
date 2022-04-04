@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
 import 'package:staff_managment_dashboard/constants/constants.dart';
 import 'package:staff_managment_dashboard/db_services/firestore.dart';
@@ -5,6 +6,41 @@ import 'package:staff_managment_dashboard/db_services/firestore.dart';
 import '../../models/user_model.dart';
 
 class StaffViewController extends GetxController {
+
+
+  
+  List<UserModel> get staff => _staff;
+
+  set staff(List<UserModel> users) => _staff = users.obs;
+
+//.....................search getter setter ........................
+
+
+
+final RxString _serachedKeyWord="".obs;
+String get serachedKeyWord=>_serachedKeyWord.value;
+set serachedKeyWord(String value)=>_serachedKeyWord.value=value;
+TextEditingController searchFieldTextEditingController=TextEditingController();
+
+    final RxBool _isSearching = false.obs;
+
+  bool get isSearching => _isSearching.value;
+
+  set isSearching(bool val) => _isSearching.value = val;
+
+    List<UserModel> get getSearchedEntries=>
+
+     staff.where((user) => user.firstName.contains(serachedKeyWord)||
+    user.email.contains(serachedKeyWord)||
+    user.position.contains(serachedKeyWord)||
+    
+    user.email.contains(serachedKeyWord)||
+    user.office.officeAddress
+    .contains(serachedKeyWord)
+    ).toList();
+  
+
+  //..........................................................
 
   late final RxString _selectedStatus;
 
@@ -42,10 +78,13 @@ class StaffViewController extends GetxController {
 
   set isFilter(bool val) => _isFilter.value = val;
 
+
+
+
   initUsersList(List<UserModel> usersList) {
     staff.clear();
 
-    _staff = usersList.obs;
+    _staff = usersList;
   }
 
   late List<UserModel> _staff = <UserModel>[
@@ -64,9 +103,13 @@ class StaffViewController extends GetxController {
     //         officeAddress: "Munchen",
     //         department: "marketing & sale",
     //         team: "sale")),
-  ].obs;
+  ];
 
-  List<UserModel> get staff => _staff;
+  String listName = "";
+
+  //list to store final filtered entries
+  List<UserModel> filtered = <UserModel>[].obs;
+
 
   @override
   void onInit() {
@@ -76,49 +119,18 @@ class StaffViewController extends GetxController {
     _selectedDept = "".obs;
     _selectedTeam = "".obs;
     _selectedPosition = "".obs;
+    _staff = <UserModel>[].obs;
 
     buildDropDownList();
 
     super.onInit();
   }
 
-  List<UserModel> getFilter() {
-   final filtersKeywords= {
-        "status": _selectedStatus.value,
-        "office": _selectedOffice.value,
-        "deptt": _selectedDept.value,
-        "team": _selectedTeam.value,
-        "position": _selectedPosition.value,
-        "employetype": _selectedEmploymentType.value,
-      };
-    final Map<String, dynamic> vaddd = {};
 
-    filtersKeywords.forEach((key, value) {
-      if (value != "") {
-        vaddd[key] = value;
+//list for dropdown value so it will be dynmic
+//comming from backend
 
-
-
-      }
-    });
-
-
-
-    return staff
-        .where((user) =>
-            (
-
-
-
-               ( vaddd['office'].toString() == user.office.officeAddress))
-                
-                
-                &&(vaddd['deptt']==user.office.department)
-                
-                )
-        .toList();
-  }
-
+//.......................dropdown values lists variables......................
   RxList<String> employmentTypeList = <String>[].obs;
 
   List<String> teamList = <String>[].obs;
@@ -129,9 +141,10 @@ class StaffViewController extends GetxController {
 
   RxList<String> officeList = <String>[].obs;
 
-  buildDropDownList() async {
+  //.......................................end..............................
 
-    //fetch dynamic data from firebase to build dropdown filed 
+  buildDropDownList() async {
+    //fetch dynamic data from firebase to build dropdown filed
     final users = (await FirestoreServices.getStaffsMembers()).obs;
 
     for (var user in users) {
@@ -152,4 +165,70 @@ class StaffViewController extends GetxController {
   List<String> removeDuplicate(List<String> usersLIst) {
     return usersLIst.toSet().toList();
   }
+
+  filterByEmployeType() {
+    final _list = staff
+        .where((user) => user.employmentType == selectedEmploymentType)
+        .toList();
+
+      filtered.assignAll(_list);
+    } 
+  
+  filterByStatus() {
+    final _list = staff
+        .where((user) => user.status.toString() == selectedStatus)
+        .toList();
+
+    
+      filtered.assignAll(_list);
+    } 
+  
+  filterByDeptt() {
+    //each time when users change dropdown, set departmentList
+    final _departmentList =
+        staff.where((user) => user.office.department == selectedDept).toList();
+
+   
+      filtered.assignAll(_departmentList);
+    } 
+  
+
+    filterByOffice() {
+    final _officeList =
+        staff.where((user) => user.office.officeAddress == selectedOffice).toList();
+
+         filtered.assignAll(_officeList);
+
+    
+  }
+    filterByPosition() {
+    final _list =
+        staff.where((user) => user.position == selectedPosition).toList();
+
+         filtered.assignAll(_list);
+
+    
+  }
+    filterByTeam() {
+    final _list =
+        staff.where((user) => user.office.team == selectedTeam).toList();
+
+         filtered.assignAll(_list);
+
+    
+  }
+
+  clearFields(){
+  selectedStatus="";
+      selectedEmploymentType="";
+      selectedDept="";
+      selectedOffice="";
+      selectedTeam="";
+      selectedPosition="";
+
+  }
+
+
+
+ 
 }

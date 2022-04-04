@@ -4,6 +4,8 @@ import 'package:get/state_manager.dart';
 import 'package:staff_managment_dashboard/screens/login/login_view.dart';
 import 'package:staff_managment_dashboard/screens/staff/staff_view_controller.dart';
 
+import '../home/holiday/holiday_view.dart';
+import '../home/home_view.dart';
 import '../staff/staff_view.dart';
 
 class NavigationRailController extends GetxController{
@@ -25,10 +27,19 @@ class NavigationRailController extends GetxController{
 
   set currentIndex(int index)=>_currentIndex.value=index;
 final List<Widget> _tabs=[
+const HomeView(),
+
   StaffView(),
 
- Text("asaa")
+  HolidayView(),
 
+  const Center(child: Text("OTHER VIEW"),),
+
+  const Center(child: Text("GRAPH VIEW"),),
+
+  const Center(child: Text("CHART VIEW"),),
+
+  const Center(child: Text("XYZ"),),
 
 
 

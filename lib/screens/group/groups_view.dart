@@ -121,41 +121,43 @@ class GropsHomeView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top:30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-                const SizedBox(height: 20,),
-                //top logo,srachfiled, inbox row
-
-
-                TopRow(),
-    
-                const SizedBox(
-                  height: 20,
-                ),
-    
-                //free tiral(notification row)
-    
-                NotificationRow(),
-                const SizedBox(
-                  height: 20,
-                ),
-    
-                FiltersRow(),
-                Obx(
-                  () =>
-                      Expanded(child: _controller.tabs[_controller.currentIndex]),
-                ),
-              ],
+            child: Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  
+                  const SizedBox(height: 20,),
+                  //top logo,srachfiled, inbox row
+                  
+                  
+                  TopRow(),
+                      
+                  const SizedBox(
+                    height: 20,
+                  ),
+                      
+                  //free tiral(notification row)
+                      
+                  NotificationRow(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                      
+                  FiltersRow(),
+                  Obx(
+                    () =>
+                        Expanded(child: _controller.tabs[_controller.currentIndex]),
+                  ),
+                ],
+              ),
             ),
           )
           ,
           IconButton(icon: const Icon(Icons.menu),onPressed: (){
-    
+        
             Get.find<MenuController>().controlMenu();
           },),
-    
+        
         ],
       ),
     );
@@ -188,7 +190,7 @@ class GropsHomeView extends StatelessWidget {
                   height: 20,
                 ),
     
-                FiltersRow(),
+             
                 Obx(
                   () =>
                       Expanded(child: _controller.tabs[_controller.currentIndex]),
@@ -261,6 +263,26 @@ class GropsHomeView extends StatelessWidget {
             selectedIcon: CircleAvatar(
               backgroundColor: Theme.of(context).primaryColor,
               child: const Icon(Icons.handshake),
+            ),
+            label: Container()),
+              NavigationRailDestination(
+            icon: const CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: Icon(Icons.analytics_outlined),
+            ),
+            selectedIcon: CircleAvatar(
+              backgroundColor: Theme.of(context).primaryColor,
+              child: const Icon(Icons.analytics),
+            ),
+            label: Container()),
+                   NavigationRailDestination(
+            icon: const CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: Icon(Icons.money),
+            ),
+            selectedIcon: CircleAvatar(
+              backgroundColor: Theme.of(context).primaryColor,
+              child: const Icon(Icons.money),
             ),
             label: Container()),
       ],

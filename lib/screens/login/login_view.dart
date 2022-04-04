@@ -70,7 +70,7 @@ class Loginview extends StatelessWidget {
                       TxtField(
                         prefixIcon: Icon(Icons.email),
                         isOutlined: true,
-                        labelText: "Username",
+                        labelText: "Username", onChanged: (){},
                       ),
                       SizedBox(
                         height: 14,
@@ -79,7 +79,7 @@ class Loginview extends StatelessWidget {
                         obsecure: true,
                         prefixIcon: Icon(Icons.lock),
                         isOutlined: true,
-                        labelText: "Passsword",
+                        labelText: "Passsword", onChanged: (){},
                       ),
                       SizedBox(
                         height: 20,

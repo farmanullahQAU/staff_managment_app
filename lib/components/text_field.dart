@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 
 class TxtField extends StatelessWidget {
+
+  Function onChanged;
   Icon? suffixIcon;
   bool obsecure;
   Icon? prefixIcon;
@@ -19,7 +21,9 @@ class TxtField extends StatelessWidget {
   TextEditingController? controller;
 
   TxtField(
+    
       {Key? key,
+      required this.onChanged,
       this.isReadOnly=false,
       this.obsecure=false,
       this.suffixIcon,
@@ -39,7 +43,7 @@ class TxtField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
+      onChanged: (value)=>onChanged(value),
       obscureText: obsecure,
       readOnly: isReadOnly!,
       keyboardType: TextInputType.multiline,

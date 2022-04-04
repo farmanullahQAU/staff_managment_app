@@ -1,89 +1,145 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/firestore.dart';
 import 'package:get/get.dart';
 import 'package:staff_managment_dashboard/constants/constants.dart';
 import 'package:staff_managment_dashboard/db_services/firestore.dart';
 import 'package:staff_managment_dashboard/models/user_model.dart';
 import 'package:staff_managment_dashboard/screens/staff/staff_view_controller.dart';
 
+import '../group/widgets/filters_rows.dart';
+
 class StaffView extends StatelessWidget {
   final _staffViewController = Get.find<StaffViewController>();
 
+   StaffView({Key? key}) : super(key: key);
+
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: Obx(
-        
-        () => 
-        
-        
-      _staffViewController.isFilter==true&&_staffViewController.getFilter().isEmpty?
+      body: Column(
+        children: [
+             FiltersRow(),
+          Obx(
 
 
-      Center(child: Text("No data found"),):
-        
-        _staffViewController.isFilter==true
-            ? SingleChildScrollView(
-                child: Obx(()=>
-               PaginatedDataTable(
-                    header: Text('Header Text'),
-                    rowsPerPage: _staffViewController.getFilter().length,
-                    columns: [
-                      DataColumn(label: Text(firstName.capitalizeFirst!)),
-                      DataColumn(label: Text(lastName.capitalizeFirst!)),
-                      DataColumn(label: Text(status.capitalizeFirst!)),
-                      DataColumn(label: Text(employmentType.capitalizeFirst!)),
-                      DataColumn(label: Text(email.capitalizeFirst!)),
-                      DataColumn(label: Text(office.capitalizeFirst!)),
-                      DataColumn(label: Text(department.capitalizeFirst!)),
-                      DataColumn(label: Text(team.capitalizeFirst!)),
-                      DataColumn(label: Text(position.capitalizeFirst!)),
-                    ],
-                    source:
-                        _DataSource(context, _staffViewController.getFilter()),
-                  ),
-                ),
-              )
-            : FutureBuilder(
-                future: FirestoreServices.getStaffsMembers(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<UserModel>> users) {
-                  if (users.hasData) {
-                    final List<UserModel> usersList = users.data!;
 
-                    _staffViewController.initUsersList(usersList);
+            
+            () => _staffViewController.isSearching == true&&_staffViewController.serachedKeyWord.isNotEmpty
+                ? _staffViewController.getSearchedEntries.isEmpty
+                    ? const Center(
+                        child: Center(child: Text("no data available")),
 
-                    return SingleChildScrollView(
-                      child: PaginatedDataTable(
-                        header: Text('Header Text'),
-                        rowsPerPage:
-                            users.data!.length > 10 ? 8 : users.data!.length,
-                        columns: [
-                          DataColumn(label: Text(firstName.capitalizeFirst!)),
-                          DataColumn(label: Text(lastName.capitalizeFirst!)),
-                          DataColumn(label: Text(status.capitalizeFirst!)),
-                          DataColumn(
-                              label: Text(employmentType.capitalizeFirst!)),
-                          DataColumn(label: Text(email.capitalizeFirst!)),
-                          DataColumn(label: Text(office.capitalizeFirst!)),
-                          DataColumn(label: Text(department.capitalizeFirst!)),
-                          DataColumn(label: Text(team.capitalizeFirst!)),
-                          DataColumn(label: Text(position.capitalizeFirst!)),
-                        ],
-                        source: _DataSource(context, usersList),
-                      ),
-                    );
-                  }
-                  if (!users.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return Container(
-                      width: 300,
-                      height: 100,
-                      color: Colors.red,
-                      child: const Text("Something went wrong"));
-                },
-              ),
+                        //there is no need of rewring the datatable so we will minimize the code soon later
+                      )
+                    : SingleChildScrollView(
+                        child: Obx(
+                          () => PaginatedDataTable(
+                            header: Obx(() => Text(_staffViewController
+                                .getSearchedEntries.length
+                                .toString())),
+                            rowsPerPage:
+                                _staffViewController.getSearchedEntries.length,
+                            columns: [
+                              DataColumn(label: Text(firstName.capitalizeFirst!)),
+                              DataColumn(label: Text(lastName.capitalizeFirst!)),
+                              DataColumn(label: Text(status.capitalizeFirst!)),
+                              DataColumn(
+                                  label: Text(employmentType.capitalizeFirst!)),
+                              DataColumn(label: Text(email.capitalizeFirst!)),
+                              DataColumn(label: Text(office.capitalizeFirst!)),
+                              DataColumn(label: Text(department.capitalizeFirst!)),
+                              DataColumn(label: Text(team.capitalizeFirst!)),
+                              DataColumn(label: Text(position.capitalizeFirst!)),
+                            ],
+                            source: _DataSource(
+                                context, _staffViewController.getSearchedEntries),
+                          ),
+                        ),
+                      )
+                : _staffViewController.isFilter == true &&
+                        _staffViewController.filtered.isEmpty
+                    ? const Center(
+                        child: Text("No data found"),
+                      )
+                    : _staffViewController.isFilter == true
+                        ? SingleChildScrollView(
+                            child: Obx(
+                              () => PaginatedDataTable(
+                                header: Obx(() => Text(_staffViewController
+                                    .filtered.length
+                                    .toString())),
+                                rowsPerPage: _staffViewController.filtered.length,
+                                columns: [
+                                  DataColumn(
+                                      label: Text(firstName.capitalizeFirst!)),
+                                  DataColumn(
+                                      label: Text(lastName.capitalizeFirst!)),
+                                  DataColumn(label: Text(status.capitalizeFirst!)),
+                                  DataColumn(
+                                      label: Text(employmentType.capitalizeFirst!)),
+                                  DataColumn(label: Text(email.capitalizeFirst!)),
+                                  DataColumn(label: Text(office.capitalizeFirst!)),
+                                  DataColumn(
+                                      label: Text(department.capitalizeFirst!)),
+                                  DataColumn(label: Text(team.capitalizeFirst!)),
+                                  DataColumn(
+                                      label: Text(position.capitalizeFirst!)),
+                                ],
+                                source: _DataSource(
+                                    context, _staffViewController.filtered),
+                              ),
+                            ),
+                          )
+                        : FutureBuilder(
+                            future: FirestoreServices.getStaffsMembers(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<UserModel>> users) {
+                              if (users.hasData) {
+                                final List<UserModel> usersList = users.data!;
+
+                                _staffViewController.initUsersList(usersList);
+
+                                return SingleChildScrollView(
+                                  child: PaginatedDataTable(
+                                    header: Text('Header Text'),
+                                    rowsPerPage: users.data!.length > 8
+                                        ? 7
+                                        : users.data!.length,
+                                    columns: [
+                                      DataColumn(
+                                          label: Text(firstName.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(lastName.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(status.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(
+                                              employmentType.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(email.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(office.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(department.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(team.capitalizeFirst!)),
+                                      DataColumn(
+                                          label: Text(position.capitalizeFirst!)),
+                                    ],
+                                    source: _DataSource(context, usersList),
+                                  ),
+                                );
+                              }
+                              if (!users.hasData) {
+                                return const Center(child: CircularProgressIndicator());
+                              }
+                              return Container(
+                                  width: 300,
+                                  height: 100,
+                                  color: Colors.red,
+                                  child: const Text("Something went wrong"));
+                            },
+                          ),
+          ),
+        ],
       ),
 
 // FirestoreQueryBuilder<UserModel>(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:staff_managment_dashboard/controllers/menu_controller.dart';
 import 'package:staff_managment_dashboard/screens/staff/staff_view_controller.dart';
 
+import 'screens/Setting/settings_view.dart';
 import 'screens/group/groups_view_controller.dart';
 
 
@@ -12,6 +13,9 @@ class Binder extends Bindings {
      Get.lazyPut<StaffViewController>(() => StaffViewController());
 
      Get.put(MenuController());
+     Get.put(SettingsController());
+
+     
 
      Get.put(NavigationRailController());
 

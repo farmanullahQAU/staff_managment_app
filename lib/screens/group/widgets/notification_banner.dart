@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NotificationRow extends StatefulWidget {
   NotificationRow({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _NotificationRowState extends State<NotificationRow> {
       height: 60,
       width: double.infinity,
     
-    color: Color.fromARGB(255, 133, 236, 240),
+    color:Get.isDarkMode?Theme.of(context).cardColor: Color.fromARGB(255, 133, 236, 240),
     
     
     child: Padding(
