@@ -38,6 +38,9 @@ class StaffView extends StatelessWidget {
                             rowsPerPage:
                                 _staffViewController.getSearchedEntries.length,
                             columns: [
+                           //show nothing for image coulum cell header
+                              DataColumn(label: Container()),
+
                               DataColumn(label: Text(firstName.capitalizeFirst!)),
                               DataColumn(label: Text(lastName.capitalizeFirst!)),
                               DataColumn(label: Text(status.capitalizeFirst!)),
@@ -68,6 +71,8 @@ class StaffView extends StatelessWidget {
                                     .toString())),
                                 rowsPerPage: _staffViewController.filtered.length,
                                 columns: [
+                              DataColumn(label: Container()),
+                                  
                                   DataColumn(
                                       label: Text(firstName.capitalizeFirst!)),
                                   DataColumn(
@@ -104,6 +109,7 @@ class StaffView extends StatelessWidget {
                                         ? 7
                                         : users.data!.length,
                                     columns: [
+                                         DataColumn(label:Container()),
                                       DataColumn(
                                           label: Text(firstName.capitalizeFirst!)),
                                       DataColumn(
@@ -243,15 +249,15 @@ class _DataSource extends DataTableSource {
         }
       },
       cells: [
-        DataCell(Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(user.imageUrl ?? ""),
-            ),
-            eightWidthSizedBox,
-            Text(user.firstName),
-          ],
-        )),
+
+        DataCell(  CircleAvatar(
+              backgroundImage
+              
+              :
+              
+              user.imageUrl!=null? NetworkImage(user.imageUrl!):Image.asset("images/mercury.png").image
+            ),),
+        DataCell(Text(user.firstName)),
         DataCell(Text(user.lastName?.capitalizeFirst ?? "")),
         DataCell(Text(user.status == true ? "Active" : "Inactive")),
         DataCell(Text(user.employmentType.capitalizeFirst!)),
