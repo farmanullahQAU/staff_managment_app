@@ -7,6 +7,12 @@ import '../../models/user_model.dart';
 
 class StaffViewController extends GetxController {
 
+  RxInt? sortIndex;
+
+  final isAscending=false.obs;
+
+
+
 
   
   List<UserModel> get staff => _staff;
@@ -28,7 +34,7 @@ TextEditingController searchFieldTextEditingController=TextEditingController();
 
   set isSearching(bool val) => _isSearching.value = val;
 
-    List<UserModel> get getSearchedEntries=>
+  List<UserModel> get getSearchedEntries=>
 
      staff.where((user) => user.firstName.contains(serachedKeyWord)||
     user.email.contains(serachedKeyWord)||
@@ -229,6 +235,27 @@ TextEditingController searchFieldTextEditingController=TextEditingController();
   }
 
 
+  void sort(int columnIndex, bool ascending) {
+    //sir filtered data
+
+isFilter==true?
+
+ filtered.sort((user1,user2)=>ascending?user1.firstName.compareTo(user2.firstName):user2.firstName.compareTo(user1.firstName)):
+
+ //sort available search data
+isSearching==true?
+getSearchedEntries.sort((user1,user2)=>ascending?user1.firstName.compareTo(user2.firstName):user2.firstName.compareTo(user1.firstName))
+
+   :
+
+   //sort all data
+staff.sort((user1,user2)=>ascending?user1.firstName.compareTo(user2.firstName):user2.firstName.compareTo(user1.firstName));
+  sortIndex=columnIndex.obs;
+    isAscending.value=ascending;
+       
+ 
+    
+  }
 
  
 }
